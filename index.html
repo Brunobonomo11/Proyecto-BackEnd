@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pruebas Javascript</title>
+  </head>
+  <body>
+    <h2>Pruebas Javascript</h2>
+
+    <script>
+      let heroes = ["ironman", "hulk", "thor"];
+
+      let div = document.createElement("div");
+      let divHtml = "";
+
+      heroes.forEach((heroe) => {
+        console.log(heroe);
+        divHtml += `<p>${heroe}</p>`;
+      });
+      div.innerHTML = divHtml;
+      document.body.append(div);
+    </script>
+  </body>
+</html>
