@@ -5,13 +5,39 @@ class ProductManager {
                 this.products=[]
             }
 
-            addProduct(title, description, code){
+            addProduct(title, description, code, thumbnail, price){
                 // VALIDACIONES 
+                
+                let tituloExistente = this.products.find(newProducts=>newProducts.title===title)
+                if(tituloExistente){
+                    console.log(`El producto con el precio ${title} ya existe..!!!`)
+                    return
+                }
+                
                 let productoExistente = this.products.find(newProducts=>newProducts.code===code)
                 if(productoExistente){
                     console.log(`El producto con el código ${code} ya existe..!!!`)
                     return
                 }
+
+                let imagenExistente = this.products.find(newProducts=>newProducts.thumbnail===thumbnail)
+                if(imagenExistente){
+                    console.log(`El producto con la imagen ${thumbnail} ya existe..!!!`)
+                    return
+                }
+
+                let precioExistente = this.products.find(newProducts=>newProducts.price===price)
+                if(precioExistente){
+                    console.log(`El producto con el precio ${price} ya existe..!!!`)
+                    return
+                }
+
+                let descriptionExistente = this.products.find(newProducts=>newProducts.description===description)
+                if(descriptionExistente){
+                    console.log(`El producto con la descripción ${description} ya existe..!!!`)
+                    return
+                }
+
 
                 // ID Único autoincremental...
 
@@ -20,7 +46,7 @@ class ProductManager {
                     id=this.products[this.products.length-1].id +1
                 }
 
-                let nuevoProducto = {id, title, description, code}
+                let nuevoProducto = {id, title, description, code, thumbnail, price};
                 this.products.push(nuevoProducto)
 
             }
@@ -64,6 +90,14 @@ newProducts.push({
     code: "1234AZ90",
     stock: "18"
 })
+newProducts.push({
+    title: "Lampara de hierro Black",
+    description: "Medidas Altura: 36cm, Diámetro: 8.50cm, Incluye USB, 3 intensidades de luz",
+    price: "32390",
+    thumbnail: "https://acdn.mitiendanube.com/stores/898/220/products/42b8bc00-77ce-4cac-90eb-a90a3679afef-9c88b85d5ecce36e5917036060949373-1024-1024.webp",
+    code: "1234AZ90",
+    stock: "18"
+})
 
 console.log(newProducts)
 
@@ -72,24 +106,32 @@ let um = new ProductManager()
 um.addProduct(
     "Alfombra Felpudo Hello",
     "Medidas: Alto 2cm, Largo 60cm, Ancho 40cm, Material: Coco y Goma",
-    "1528OP66"
+    "1528OP66",
+    "https://acdn.mitiendanube.com/stores/898/220/products/40431025-fe5d-40c6-b67a-f4cd07c5c95e-6a8a5eb51fd06fd98a17012692474216-1024-1024.webp",
+    "15500"
 )
 um.addProduct(
     "Difusor Therapie Spicy Cedar",
     "Notas de salida: Cardamomo, Manzana Verde, Notas de cuerpo: Violeta, Rosa",
-    "1536HY96"
+    "1536HY96",
+    "https://acdn.mitiendanube.com/stores/898/220/products/3f4cb15c-ea97-4ded-9af6-b6d91cf1db89-c6136101c4fb6ea23416986844884822-1024-1024.webp",
+    "17600"
 )
 um.addProduct(
     "Dispenser de Jabón Marsella Ambar 250ML",
     "Medidas: Altura 13.50cm, Diámetro 8cm, Capacidad 220ML",
-    "1469HJ63"
+    "1469HJ63",
+    "https://acdn.mitiendanube.com/stores/898/220/products/879a7f56-0536-40cd-b547-e65168d8b4f1-ae3d9f58c5244f55c917011907477466-1024-1024.webp",
+    "25600"
 )
 
 // ARROJA UN ERROR POR QUE EL PRODUCTO CON EL CÓDIGO YA SE ENCUENTRA EN PRODUCT MANAGER
 um.addProduct(
     "Dispenser de Jabón Marsella Ambar 250ML",
     "Medidas: Altura 13.50cm, Diámetro 8cm, Capacidad 220ML",
-    "1469HJ63"
+    "1469HJ63",
+    "https://acdn.mitiendanube.com/stores/898/220/products/879a7f56-0536-40cd-b547-e65168d8b4f1-ae3d9f58c5244f55c917011907477466-1024-1024.webp",
+    "25600"
 )
 
 console.log(um.getProducts())
