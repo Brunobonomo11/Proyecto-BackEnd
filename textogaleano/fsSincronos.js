@@ -83,6 +83,23 @@ fs.writeFileSync(rutaArchivo2, JSON.stringify(productos, null, "\t"))
 let datoLeido=JSON.parse(fs.readFileSync(rutaArchivo2, {encoding:"utf-8"}))
 console.log(datoLeido[0].title)
 
+
+// Creamos promesas para el texto
+const app=async()=>{
+            await fs.promises.writeFile(rutaArchivo, texto1)
+            let datosDelArchivo=await  fs.promises.readFile(rutaArchivo, {encoding:"utf-8"})
+                    console.log(datosDelArchivo)
+            await fs.promises.appendFile(rutaArchivo, "\n\nEditorial Alfaguara")
+                    console.log("Editorial Agregada")
+
+            // ELIMINAMOS EL ARCHIVO    
+            // setTimeout(async()=> {
+            //     await fs.promises.unlink(rutaArchivo)
+            //     console.log("Archivo eliminado..!!")
+            // }, 2000);
+}
+
+
 // Leemos el titulo , la descripcion y el precio de todos los productos en el array, los mostramos en consola
 let productoTexto = JSON.stringify(productos, ["title", "description", "price"], 2)
 console.log(productoTexto)
@@ -121,24 +138,35 @@ const suma=(a,b)=>{
     })
 }
 
-suma(8,7)
-.then(resultado=>{
-    console.log(resultado + 10)
-})
-.catch(error=>{
-    console.log(error.message)
-})
+const multiplica=(a,b)=>{
+    return new Promise((res, rej) => {
+        if(typeof a!=="number" || typeof b!=="number"){
+            rej(new Error("Solo se aceptan argumentos númericos"))
+        }
 
-suma("Juan", 7)
-.then(resultado =>{
-    console.log(resultado + 10)
-})
-.catch(error=>{
-    console.log(error.message)
-})
-.finally(() =>{
-    console.log("Esto se ejecuta siempre...")
-})
+        res(a+b)
+    })
+}
+
+
+// suma(8,7)
+// .then(resultado=>{
+//     console.log(resultado + 10)
+// })
+// .catch(error=>{
+//     console.log(error.message)
+// })
+
+// suma("Juan", 7)
+// .then(resultado =>{
+//     console.log(resultado + 10)
+// })
+// .catch(error=>{
+//     console.log(error.message)
+// })
+// .finally(() =>{
+//     console.log("Esto se ejecuta siempre...")
+// })
 
 suma(5, 5)
     .then(res1=>{
@@ -154,3 +182,50 @@ suma(5, 5)
                     })
             })
     })
+
+
+suma(3,3)
+    .then((resultado)=>{
+        return resultado + 5
+    })
+    .then(nuevoResultado=>console.log(nuevoResultado))
+    .then(res=>console.log(res))
+
+
+nuevoResultado=> console.log(nuevoResultado)
+
+
+suma(5,5)
+    .then(res1=>suma(res1, 5))
+    .then(res2=> {
+        console.prueba()
+        return suma(res2, 5)
+    })
+    .then(res3 => suma(res3, 5))
+    .then(res4 => suma(res4, 5))
+    .then(resFinal=>console.log("Encadenamiento promesas", resFinal))
+    .catch(error=>console.log(error.message))
+
+
+let auxiliar=0
+multiplica(3,4)
+    .then(res1=>{
+            auxiliar = res1
+            return multiplica(5,3)
+    })
+    .then(res2 =>{
+        return suma(auxiliar, res2)
+    })
+    .then(resFinal=>console.log("Resultado operacion:", resFinal))
+
+
+// USO DE AWAIT & ASYNC
+
+const entorno = async()=>{
+    let res1=await multiplica(3,4)
+    let res2=await multiplica(5,3)
+    let resFinal=await suma(res1,res2)
+    console.log(resFinal)
+}
+
+entorno()
