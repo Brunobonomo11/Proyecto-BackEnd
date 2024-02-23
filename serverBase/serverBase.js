@@ -5,19 +5,28 @@ const PORT = 3000
 
 const server = http.createServer((req, res) => {
 
-    let urlParsed=url.parse(req.url)
+    // let urlParsed=url.parse(req.url)
+    // console.log(urlParsed)
+
+    let urlParsed = url.parse(req.url, true)
     console.log(urlParsed)
 
-    if(req.url==="/contacto"){
-        res.writeHead(200, {"content-type":"text/html; charset=utf-8"})
-        res.end("Contact Page")
+    // console.log(req.url)
+    if(urlParsed.pathname==="/contacto"){
+        if(urlParsed.query.name){
+            res.writeHead(200, {"content-type":"text/html; charset=utf-8"})
+            res.end("Contact Page" + urlParsed.query.nombre)
+        }else {
+            res.writeHead(200, {"content-type":"text/html; charset=utf-8"})
+            res.end("Contact Page")
+        }
         return
     }
 
-    if(req.url==="/"){
+    if(urlParsed.pathname==="/"){
         res.writeHead(200, {"content-type":"text/html; charset=utf-8"})
         res.end("Server Básico con http...!!!")
-        return
+        
     }
 
     res.writeHead(404, {"Content-Type":"text/html; charset=utf-8"})
