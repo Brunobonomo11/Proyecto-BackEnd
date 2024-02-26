@@ -63,6 +63,10 @@ class ProductManager {
 
                 return producto
             }
+
+            saludo(){
+                return `El producto ${this.title} tiene un precio de ${this.price} !`
+            }
 }
 
 let newProducts=[]
@@ -219,3 +223,4 @@ console.log(operar(10, "Camila", (err, a, b)=> {
     }
 }))
 
+module.exports=ProductManager

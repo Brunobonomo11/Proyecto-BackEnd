@@ -1,9 +1,19 @@
+import express from 'express';
 const express= require("express")
 const modulo=require("./newProducts")
+const ProductManager = require("../Products/products")
 
 const PORT=3000
 
-const app=express()
+const app=express();
+
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+app.get('/', (req,res) => {
+    res.setHeader('Content-Type','text/plain');
+    res.status(200).send('OK')
+})
 
 app.get("/", (req, res)=> {
 
@@ -55,7 +65,12 @@ app.get("/contacto", (req, res) => {
 
 })
 
-
-app.listen(PORT, ()=>{
-    console.log(`Server OK en puerto ${PORT}`)
+app.listen(PORT, ()=> {
+    console.log(`Server escuchando en puerto ${PORT}`)
 })
+
+let producto= new ProductManager("Batería", "Modulo Pantalla")
+console.log(producto.saludo())
+
+let Producto04 =new ProductManager("Batería", "Modulo Pantalla")
+console.log(Producto04.saludo())
