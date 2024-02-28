@@ -1,6 +1,6 @@
-import express from 'express';
-import modulo from "./newProducts.js"
-import ProductManager from '../Products/products.js';
+const express =require ("express")
+const modulo=require("./newProducts.js")
+const ProductManager = require("../Products/products.js")
 
 const PORT=3000
 
