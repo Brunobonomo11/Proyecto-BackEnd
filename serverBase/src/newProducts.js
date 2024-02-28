@@ -25,4 +25,4 @@ let newProducts = [
     }
 ];
 
-module.exports={newProducts}
+export default {newProducts}

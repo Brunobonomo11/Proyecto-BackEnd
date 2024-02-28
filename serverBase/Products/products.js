@@ -223,4 +223,4 @@ console.log(operar(10, "Camila", (err, a, b)=> {
     }
 }))
 
-module.exports=ProductManager
+export default ProductManager
