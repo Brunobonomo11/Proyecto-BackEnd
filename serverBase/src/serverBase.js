@@ -2,12 +2,12 @@ const http = require("http")
 
 const PORT = 3000
 
-const server = http.createServer((req, res) => {
-
+const server=http.createServer((req, res)=>{
+    
     res.writeHead(200, {"Content-Type":"text/html; charset=utf-8"})
-    res.end("Server Básico con http..!!")
+    res.end("Server Basico con Http !!")
 })
 
 server.listen(PORT, ()=>{
-    console.log("Server online en puerto", PORT)
+    console.log("Server activo en puerto", PORT)
 })
