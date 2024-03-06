@@ -103,5 +103,4 @@ console.log(JSON.stringify(nwp.getProducts(), null, 5))
 
 console.log(nwp.getProductsById(5))
 
-
 export default ProductManager

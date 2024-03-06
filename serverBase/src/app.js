@@ -1,10 +1,32 @@
-const express = require("express")
-const modulo = require("./datos/productos")
-const productos = require("./datos/productos").productos
+import express from 'express'
+import modulo from './datos/productos.js'
+import productos from './datos/productos.js'
+import path from 'path'
+import fs from 'fs'
+import __dirname from './utils.js'
 
-const PORT = 3000
 
-const app=express()
+
+const PORT = 8080;
+
+const app=express();
+
+let ruta=path.join(__dirname, 'data', 'allproducts.json')
+
+function getProductos(){
+    if(fs.existsSync(ruta)){
+        return JSON.parse(fs.readFileSync(ruta, 'utf-8'))
+        }else{
+            return[]
+        }
+}
+
+function saveProducts(products){
+    fs.writeFileSync(ruta, JSON.stringify(products, null, 5))
+}
+
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 app.get("/", (req, res)=>{
 
@@ -63,6 +85,40 @@ app.get("/contacto", (req, res)=>{
     }
 })
 
+app.get("/api/products", (req, res)=>{
+
+        let productos = getProductos()
+
+        res.setHeader('Content-Type', 'application/json');
+        return res.status(200).json({productos})
+    
+})
+
+app.post("/api/products", (req, res)=>{
+
+    console.log(req.body)
+    
+    // VALIDACIONES
+    let productos =  getProductos()
+
+    //ASIGNAR ID
+    let id=1
+    if(productos.length>0){
+        id=Math.max(...productos.map(p=>p.id))+1
+    }
+
+    let nuevoProducto={
+        id,
+        ...req.body
+    }
+
+    productos.push(nuevoProducto)
+
+    saveProducts(productos)
+
+    return res.status(201).json({nuevoProducto});
+
+})
 
 app.listen(PORT, ()=>{
     console.log(`Server activo en puerto ${PORT}`)
