@@ -23,21 +23,12 @@
      {
           "id": 4,
           "pid": 3,
-          "title": "Iphone 14",
+          "title": "Iphone 14 Pro",
           "description": "Pantalla 6.5 pulgadas",
           "price": "396000",
           "thumbnail": "https://digitalapplerd.com/wp-content/uploads/2023/02/Apple-iPhone-14-Pro-iPhone-14-Pro-Max-deep-purple-220907_inline.jpg.large_.jpg",
           "code": "IP1465",
           "stock": "10"
-     },
-     {
-          "id": 5,
-          "title": "Iphone 15",
-          "description": "Pantalla 6.8 pulgadas",
-          "price": "456000",
-          "thumbnail": "https://d2ihpvt6nd5q28.cloudfront.net/wp-content/uploads/2023/12/iPhone15_Black_PDP_Image_Position-1__MXLA.jpg",
-          "code": "IP1560",
-          "stock": "18"
      },
      {
           "id": 6,
