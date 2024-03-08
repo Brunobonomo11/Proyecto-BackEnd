@@ -38,5 +38,21 @@
           "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_912227-MLA71782903150_092023-O.webp",
           "code": "IP1570",
           "stock": "8"
+     },
+     {
+          "id": 7,
+          "nombre": "Iphone 15 Pro Max"
+     },
+     {
+          "id": 8,
+          "nombre": "Iphone 14 Pro Max"
+     },
+     {
+          "id": 9,
+          "nombre": "Iphone 14 Pro Max"
+     },
+     {
+          "id": 10,
+          "nombre": "Iphone Xr"
      }
 ]

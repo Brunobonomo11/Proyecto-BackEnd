@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>Productos Apple</title>
+</head>
+<body>
+        <h2>Los mejores Productos de Apple</h2>
+        <hr>
+        <br>
+                <div>
+                    <img src="./assets/Iphone Xs Max .webp" alt="" width="200px">
+                    <img src="./assets/Samsung s23.png" alt="" width="300px">
+                    <img src="./assets/Moto edge 30 Neov.jpg" alt="" width="200px">
+                    <img src="./assets/Moto edge 40 Pro .jpg" alt="" width="200px">
+                    <img src="./assets/Iphone 14 Pro Max .jpg" alt="" width="150px">
+                    <img src="./assets/Iphone 15 Pro Max .webp" alt="" width="150px">
+                </div>
+                <div>
+                    <form action="/api/celulares" method="post">
+                        <input type="text" name="nombre" placeholder="Ingrese el modelo de Celular">
+                        <input type="submit" value="Buscar">
+                    </form>
+                </div>
+                <br>
+                <div>
+                    <form action="/profile" method="post" enctype="multipart/form-data">
+                        <input type="file" name="foto" />
+                        <input type="text" name="nombre" placeholder="Ingrese el modelo de Celular">
+                        <br>
+                        <input type="submit" value="Upload">
+                    </form>
+                </div>
+        <br>
+</body>
+</html>
