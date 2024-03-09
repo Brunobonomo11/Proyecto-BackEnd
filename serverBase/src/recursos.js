@@ -14,3 +14,5 @@ function getProductos(){
 function saveProducts(products){
     fs.writeFileSync(ruta, JSON.stringify(products, null, 5))
 }
+
+export default getProductos

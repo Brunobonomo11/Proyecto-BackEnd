@@ -5,10 +5,14 @@ import __dirname from './utils.js';
 import {router as celularesRouter} from './routes/celulares.router.js'
 import { upload } from './utils.js';
 import handlebars from 'express-handlebars'
+import { router as vistasRouter } from './routes/vistas.router.js'
+import { Server } from 'socket.io';
 
 const PORT = 8080;
 
 const app=express();
+
+let serverSocket;
 
 const middleware01=(req, res, next)=>{
     console.log(`pasó x middleware01 !!! - url: ${req.url} - queryParams: ${JSON.stringify(req.query)} - fecha: ${new Date().toUTCString}`)
@@ -53,6 +57,7 @@ app.use(middleware01, middleware02, (req, res, next)=>{
 
 app.use("/api/products", productosRouter)
 app.use("/api/celulares",  celularesRouter)
+app.use("/", vistasRouter)
 
 
 app.get("/", (req, res)=>{
@@ -108,4 +113,10 @@ app.post("/profile", upload.single("foto"), (req, res)=>{
 
 app.listen(PORT, ()=>{
     console.log(`Server activo en puerto ${PORT}`)
+})
+
+serverSocket = new Server(serverHttp)
+
+serverSocket.on("connection", socket=> {
+    console.log(`Se ha conectado un cliente con id ${socket.id}`)
 })

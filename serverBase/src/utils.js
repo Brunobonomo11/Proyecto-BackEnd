@@ -20,3 +20,5 @@ const storage = multer.diskStorage({
 });
 
 export const upload = multer({ storage: storage });
+
+export const rutaProductos = join(__dirname, "data", "allproducts.json");

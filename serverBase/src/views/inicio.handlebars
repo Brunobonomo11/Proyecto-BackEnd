@@ -1,7 +1,14 @@
 <h2>Home Page</h2>
 <hr>
 
-<h3 style="color:{{color}};">Hola {{nombre}}</h3>
+<h3 style="color:{{color}};">Listado de Productos:</h3>
+<ul>
+    {{#each 'allproducts.json'}}
+        <li>{{title}} - Precio: <i>{{price}}</i></li>
+    {{/each}}
+</ul>
 
 <br><br>
 <a href="/api/products">Celulares</a>
+
+<script src="../data/allproducts.json"></script>
