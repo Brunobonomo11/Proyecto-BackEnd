@@ -17,3 +17,13 @@ router.get('/products', (req, res) =>{
 
     res.status(200).render("products")
 })
+
+router.get('/pruebas', (req, res)=>{
+    
+    res.status(200).render("pruebas")
+})
+
+router.get('/chat', (req, res)=>{
+
+    res.status(200).render('chat')
+})

@@ -111,12 +111,40 @@ app.post("/profile", upload.single("foto"), (req, res)=>{
 
 })
 
-app.listen(PORT, ()=>{
-    console.log(`Server activo en puerto ${PORT}`)
+const serverHttp=app.listen(PORT, ()=>{ // HTTP SERVER
+    console.log(`Servidor activo en puerto ${PORT}`)
 })
+
+let mensajes=[]
+let usuarios=[]
 
 serverSocket = new Server(serverHttp)
 
 serverSocket.on("connection", socket=> {
     console.log(`Se ha conectado un cliente con id ${socket.id}`)
+    socket.emit("saludo", {emisor:"Server", mensaje:"Bienvenido al server !!"})
+
+    socket.on("presentacion", nombre=>{
+        usuarios.push({id:socket.id, nombre})
+        socket.emit("historial", mensajes)
+        socket.broadcast.emit("nuevoUsuario", nombre)
+    })
+
+    socket.on("mensaje", (nombre, mensaje)=>{
+        mensajes.push({nombre, mensaje})
+        serverSocket.emit("nuevoMensaje", nombre, mensaje)
+    })
+
+    socket.on("disconnect", ()=>{
+        let nombre=usuarios.find(u=>u.id===socket.id)
+        if(nombre){
+            socket.broadcast.emit("saleUsuario", nombre)
+        }
+    })
 })
+
+setInterval(() =>{
+    let temperatura=Math.floor(Math.random()*(5)+28)
+    serverSocket.emit("temperatura", temperatura)
+}, 1000);
+
