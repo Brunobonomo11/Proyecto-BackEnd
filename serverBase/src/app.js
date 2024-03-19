@@ -148,3 +148,12 @@ setInterval(() =>{
     serverSocket.emit("temperatura", temperatura)
 }, 1000);
 
+const connect=async()=>{
+    try {
+        await mongoose.connect("mongodb+srv://brunobonomo11:Proyectomongo1234@cluster0.fxxkm1c.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&dbName=ProductosNuevos")
+        console.log("DB Online !!")
+    } catch (error) {
+        console.log("Fallo conexion Detalle: ", error.message)
+    }
+}
+
