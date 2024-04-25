@@ -16,3 +16,5 @@ function saveProducts(products){
 }
 
 export default getProductos
+
+// mongodb+srv://brunobonomo11:Proyectomongo1234@cluster0.fxxkm1c.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&dbName=ProductosNuevos

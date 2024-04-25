@@ -1,3 +1,17 @@
+// MONGO DB ATLAS
+
+// brunobonomo  /  jfvsZawoy6AT9olI
+// bruno.bonomo@hotmail.com
+
+// POWERSHELL
+// mongosh "mongodb+srv://cluster0.1xtnzaz.mongodb.net/" --apiVersion 1 --username brunobonomo
+
+// NODE JS
+// mongodb+srv://brunobonomo:jfvsZawoy6AT9olI@cluster0.1xtnzaz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+
+
+
 db.products.insertOne({
     marca: "Iphone",
     modelo: "Xs Max",

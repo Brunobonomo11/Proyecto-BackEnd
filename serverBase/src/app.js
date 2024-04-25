@@ -7,6 +7,7 @@ import { upload } from './utils.js';
 import handlebars from 'express-handlebars'
 import { router as vistasRouter } from './routes/vistas.router.js'
 import { Server } from 'socket.io';
+import mongoose from 'mongoose';
 
 const PORT = 8080;
 
