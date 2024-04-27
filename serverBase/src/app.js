@@ -8,6 +8,9 @@ import handlebars from 'express-handlebars'
 import { router as vistasRouter } from './routes/vistas.router.js'
 import { Server } from 'socket.io';
 import mongoose from 'mongoose';
+import cookieParser from "cookie-parser"
+import session from 'express-session'
+import { auth } from  './middlewares/auth.js'
 
 const PORT = 8080;
 
@@ -39,6 +42,14 @@ const middleware02=(req, res, next)=>{
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cookieParser())
+app.use(session(
+    {
+        secret:"CoderCoder123",
+        resave: true,
+        saveUninitialized: true
+    }
+))
 app.engine("handlebars", handlebars.engine())
 app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "views"))
@@ -76,6 +87,100 @@ app.get("/", (req, res)=>{
         nombre, color
     })
 
+})
+
+app.get('/sessionmsj', (req,res)=> {
+
+    let mensaje = "Bienvenido"
+    if(req.session.contador){
+        req.session.contador++
+        mensaje+=`. Visitas a esta ruta: ${req.session.contador}`
+    }else{
+        req.session.contador=1;
+    }
+    
+    res.setHeader('Content-Type','text/plain');
+    res.status(200).send('OK');
+})
+
+
+let usuarios24=[
+    {
+        nombre:'Diego', password:123, 
+        rol: 'usuario'
+    },
+    {
+        nombre:'Laura', password:123, 
+        rol: 'usuario'
+    },
+    {
+        nombre:'Admin', password:'codercoder', 
+        rol: 'admin'
+    },
+]
+
+
+app.get('/login', (req, res)=> {
+    let {nombre, password}= req.query
+    if(!nombre || !password) {
+        res.setHeader('Content-Type','application/json');
+        return res.status(400).json({error: "Complete los datos"})
+    }
+
+    let usuario=usuarios.find(u=>u.nombre===nombre && u.password==password)
+    if(!usuario){
+        res.setHeader('Content-Type', 'application/json');
+        return res.status(403).json({error: 'Credenciales incorrectas'})
+    }
+
+    req.session.usuario=usuario
+
+    res.setHeader('Content-Type','application/json');
+    return res.status(200).json({payload:"Login Exitoso", usuario});
+})
+
+app.get('/datos', auth, (req, res)=> {
+
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json({
+        datos:"ruta datos..."
+    })
+})
+
+app.get('/imagenes', auth, (req, res)=>{
+
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json({
+        datos:"ruta imagenes..."
+    })
+
+})
+
+
+app.get('/Setcookies', (req, res)=>{
+
+    let info={
+        nombre: "Juan", them:"dark", fontSize: 18
+    }
+    
+    res.cookie("cookie01", info)
+    res.cookie("cookie02conVencimiento", info, {maxAge: 1000*5})
+    res.cookie("cookie03conVencimiento", info, {maxAge: 1000*5})
+
+    res.setHeader('Content-Type', 'application/json')
+    res.status(200).json({
+        message: "Cookies Generadas.. !!!"
+    })
+})
+
+app.get("/getcookies", (req,res)=>{
+    
+    console.log(req.headers.cookie)
+
+    let cookies=req.cookies
+
+    res.setHeader('Content-Type', 'application/json');
+    return res.status(200).json({cookies})
 })
 
 
