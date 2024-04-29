@@ -5,7 +5,7 @@ import __dirname from './utils.js';
 import {router as celularesRouter} from './routes/celulares.router.js'
 import { upload } from './utils.js';
 import handlebars from 'express-handlebars'
-import { rputer as sessionsRouter } from  './routes/sessions.router.js'
+import { router as sessionsRouter } from  './routes/sessions.router.js'
 import { router as vistasRouter } from './routes/vistas.router.js'
 import { Server } from 'socket.io';
 import mongoose from 'mongoose';

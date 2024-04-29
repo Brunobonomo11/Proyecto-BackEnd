@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { creaHash, validaPassword } from '..utils.js';
+import { creaHash, validaPassword } from '../utils.js';
+import { UsuariosManagerMongo } from '../dao/usuariosManagerMONGO.js';
 import passport from 'passport';
 export const router=Router()
 
