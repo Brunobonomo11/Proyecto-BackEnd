@@ -27,3 +27,8 @@ router.get('/chat', (req, res)=>{
 
     res.status(200).render('chat')
 })
+
+router.get('/registro', (req, res)=>{
+
+    res.status(200).render('home')
+})

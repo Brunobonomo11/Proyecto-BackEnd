@@ -5,16 +5,22 @@ import __dirname from './utils.js';
 import {router as celularesRouter} from './routes/celulares.router.js'
 import { upload } from './utils.js';
 import handlebars from 'express-handlebars'
+import { rputer as sessionsRouter } from  './routes/sessions.router.js'
 import { router as vistasRouter } from './routes/vistas.router.js'
 import { Server } from 'socket.io';
 import mongoose from 'mongoose';
 import cookieParser from "cookie-parser"
 import session from 'express-session'
+import FileStore from "session-file-store"
 import { auth } from  './middlewares/auth.js'
+import { inicializaPassport } from './config/passport.config.js';
+import passport from 'passport';
+import { initPassport } from './config/passport.config.js';
 
 const PORT = 8080;
 
 const app=express();
+const fileStore=FileStore(session)
 
 let serverSocket;
 
@@ -47,9 +53,27 @@ app.use(session(
     {
         secret:"CoderCoder123",
         resave: true,
-        saveUninitialized: true
+        saveUninitialized: true,
+        store: new fileStore (
+            {
+                path: "./src/sessions",
+                ttl: 300,
+                retries: 0
+            }
+        )
     }
 ))
+
+inicializaPassport()
+app.use(passport.initialize())
+app.use(passport.session())
+
+initPassport()
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.use("/api/sessions", sessionsRouter)
+
 app.engine("handlebars", handlebars.engine())
 app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "views"))
@@ -70,6 +94,7 @@ app.use(middleware01, middleware02, (req, res, next)=>{
 app.use("/api/products", productosRouter)
 app.use("/api/celulares",  celularesRouter)
 app.use("/", vistasRouter)
+// app.use("/api/heroes", heroesRouter)
 
 
 app.get("/", (req, res)=>{
@@ -138,6 +163,21 @@ app.get('/login', (req, res)=> {
     res.setHeader('Content-Type','application/json');
     return res.status(200).json({payload:"Login Exitoso", usuario});
 })
+
+
+app.get("/logout", (req, res)=>{
+    req.session.destroy(error=>{
+        if(error){
+            cconsole.log(error)
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(500).json({
+                error:`Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
+                detalle:`${error.message}`
+            })
+        }
+    })
+})
+
 
 app.get('/datos', auth, (req, res)=> {
 
